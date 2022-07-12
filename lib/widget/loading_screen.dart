@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class LoadingScreen extends StatelessWidget {
   const LoadingScreen({Key? key}) : super(key: key);
 
-  void startServer(BuildContext context) async{
+  void startServer(BuildContext context) async {
     Server.instance;
     context.read<ServerCubit>().onServerStarted();
   }
@@ -14,8 +14,6 @@ class LoadingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     startServer(context);
-    return const Center(
-        child: SizedBox(
-            child: CircularProgressIndicator()));
+    return const Center(child: SizedBox(child: CircularProgressIndicator()));
   }
 }

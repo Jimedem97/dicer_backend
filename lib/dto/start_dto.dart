@@ -14,8 +14,8 @@ class StartDto {
 
   factory StartDto.fromJson(Map<String, dynamic> json) {
     return StartDto(
-        initialTickDurationMS: json['initialTickDurationMS'] ?? 100,
-        percentTickIncrease: json['percentTickIncrease'] ?? 10,
+        initialTickDurationMS: json['initialTickDurationMS'] ?? 300,
+        percentTickIncrease: json['percentTickIncrease'] ?? 5,
         lastTickMS: json['lastTickMS'] ?? 1000,
         targets: _toIntListOrDefault(json['targets']));
   }
