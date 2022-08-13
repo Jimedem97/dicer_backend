@@ -9,12 +9,14 @@ class Dice extends StatelessWidget {
       {required this.number,
       required this.sizeMultiplier,
       required this.bounceDuration,
+      required this.animation,
       Key? key})
       : super(key: key);
 
   final int number;
   final double sizeMultiplier;
   final int bounceDuration;
+  final String animation;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +25,7 @@ class Dice extends StatelessWidget {
     final diceSize =
         min(mediaQuery.size.height, mediaQuery.size.width) * sizeMultiplier;
     return Heartbeat(
+      animation: animation,
       durationMs: bounceDuration ~/ 2,
       child: DiceContent(number: number, diceSize: diceSize),
     );

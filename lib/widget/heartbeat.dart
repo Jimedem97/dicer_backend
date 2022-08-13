@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 
 class Heartbeat extends StatefulWidget {
-  const Heartbeat({required this.child, required this.durationMs, Key? key})
+  const Heartbeat(
+      {required this.child,
+      required this.durationMs,
+      required this.animation,
+      Key? key})
       : super(key: key);
 
   final Widget child;
   final int durationMs;
+  final String animation;
 
   @override
   HeartbeatState createState() => HeartbeatState();
@@ -32,8 +37,14 @@ class HeartbeatState extends State<Heartbeat> with TickerProviderStateMixin {
       curve: Curves.easeIn,
     );
     if (widget.durationMs > 0) {
-      await _controller.reverse();
-      await _controller.forward();
+      if (widget.animation == "ANIMATION1") {
+        await _controller.reverse();
+        await _controller.forward();
+      } else if (widget.animation == "ANIMATION2") {
+        await _controller.forward();
+        await _controller.reverse();
+        await _controller.forward();
+      } else {}
     }
   }
 

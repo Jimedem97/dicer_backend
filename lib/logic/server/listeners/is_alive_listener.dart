@@ -9,6 +9,4 @@ class IsAliveListener extends ServerListener {
 
   @override
   int onMessageReceived(String body) => 200;
-
-
 }

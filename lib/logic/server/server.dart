@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:dicer/logic/server/listeners/auto_run_listener.dart';
 import 'package:dicer/logic/server/listeners/is_alive_listener.dart';
 import 'package:dicer/logic/server/listeners/server_listener.dart';
 

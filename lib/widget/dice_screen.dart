@@ -20,30 +20,38 @@ class _DiceScreenState extends State<DiceScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<DiceCubit, DiceState>(
-        buildWhen: (previous, next) {
-          return true;
-        },
-        builder: (context, state) {
-          switch (state.numbers.length) {
-            case 1:
-              return OneDiceScreen(
-                  number: state.numbers[0], nextDiceIn: state.nextDiceInMs);
-            case 2:
-              return TwoDicesScreen(
-                  number1: state.numbers[0], number2: state.numbers[1], nextDiceIn: state.nextDiceInMs);
-            case 3:
-              return ThreeDicesScreen(
-                  number1: state.numbers[0],
-                  number2: state.numbers[1],
-                  number3: state.numbers[2], nextDiceIn: state.nextDiceInMs);
-            default:
-              return FourDicesScreen(
-                  number1: state.numbers[0],
-                  number2: state.numbers[1],
-                  number3: state.numbers[2],
-                  number4: state.numbers[3], nextDiceIn: state.nextDiceInMs);
-          }
-        },
+      buildWhen: (previous, next) {
+        return true;
+      },
+      builder: (context, state) {
+        switch (state.numbers.length) {
+          case 1:
+            return OneDiceScreen(
+                animation: state.animation,
+                number: state.numbers[0], nextDiceIn: state.nextDiceInMs);
+          case 2:
+            return TwoDicesScreen(
+                animation: state.animation,
+                number1: state.numbers[0],
+                number2: state.numbers[1],
+                nextDiceIn: state.nextDiceInMs);
+          case 3:
+            return ThreeDicesScreen(
+                animation: state.animation,
+                number1: state.numbers[0],
+                number2: state.numbers[1],
+                number3: state.numbers[2],
+                nextDiceIn: state.nextDiceInMs);
+          default:
+            return FourDicesScreen(
+                animation: state.animation,
+                number1: state.numbers[0],
+                number2: state.numbers[1],
+                number3: state.numbers[2],
+                number4: state.numbers[3],
+                nextDiceIn: state.nextDiceInMs);
+        }
+      },
     );
   }
 

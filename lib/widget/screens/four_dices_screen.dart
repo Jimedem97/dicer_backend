@@ -8,6 +8,7 @@ class FourDicesScreen extends StatelessWidget {
       required this.number3,
       required this.number4,
       required this.nextDiceIn,
+      required this.animation,
       Key? key})
       : super(key: key);
 
@@ -16,6 +17,7 @@ class FourDicesScreen extends StatelessWidget {
   final int number3;
   final int number4;
   final int nextDiceIn;
+  final String animation;
 
   @override
   Widget build(BuildContext context) {
@@ -25,20 +27,24 @@ class FourDicesScreen extends StatelessWidget {
         children: [
           Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
             Dice(
+                animation: animation,
                 number: number1,
                 sizeMultiplier: 0.4,
                 bounceDuration: nextDiceIn),
             Dice(
+                animation: animation,
                 number: number2,
                 sizeMultiplier: 0.4,
                 bounceDuration: nextDiceIn)
           ]),
           Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
             Dice(
+                animation: animation,
                 number: number3,
                 sizeMultiplier: 0.4,
                 bounceDuration: nextDiceIn),
             Dice(
+                animation: animation,
                 number: number4,
                 sizeMultiplier: 0.4,
                 bounceDuration: nextDiceIn)

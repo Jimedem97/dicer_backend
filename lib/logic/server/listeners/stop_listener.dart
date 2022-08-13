@@ -3,27 +3,27 @@ import 'dart:convert';
 import 'package:dicer/dto/config_dto.dart';
 import 'package:dicer/logic/server/listeners/server_listener.dart';
 
-class DicerServerStartListener extends ServerListener{
+class DicerServerStopListener extends ServerListener{
 
-  final DicerStartListener listener;
+  final DicerStopListener listener;
 
-  DicerServerStartListener(this.listener);
+  DicerServerStopListener(this.listener);
 
   @override
   String getMethod() => "POST";
 
   @override
-  String getPath() => "/dicer/start";
+  String getPath() => "/dicer/stop";
 
   @override
   int onMessageReceived(String body) {
-    listener.onStartReceived();
+    listener.onStopReceived();
     return 201;
   }
 }
 
-abstract class DicerStartListener{
+abstract class DicerStopListener{
 
-  void onStartReceived();
+  void onStopReceived();
 }
 
