@@ -6,16 +6,34 @@ import requests
 
 pin = 14 
 stopped = True
-basePath = "http://localhost:8080/dicer/"
+basePathRaspi = "http://joni-media.local/dicer/"
+basePathLaptop = "http://joni-laptop-alt/dicer/"
 
-def on_pushdown():
+
+def on_pushdown(c):
+    global stopped
+    global basePathRaspi
+    global basePathLaptop
+    
     if(stopped):
-        result = requests.post(basePath + "start")
-        print(result)
+        try:
+            requests.post(basePathLaptop + "start")
+        except Exception:
+            print("Laptop not reachable")
+        try:
+            requests.post(basePathRaspi + "start")
+        except Exception:
+            print("Raspi not reachable")
         stopped = False
     else:
-        result = requests.post(basePath + "stop")
-        print(result)
+        try:
+            requests.post(basePathLaptop + "stop")
+        except Exception:
+            print("Laptop not reachable")
+        try:
+            requests.post(basePathRaspi + "stop")
+        except Exception:
+            print("Raspi not reachable")
         stopped = True
 
 
