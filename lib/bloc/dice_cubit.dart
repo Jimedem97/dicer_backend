@@ -72,7 +72,7 @@ class DiceCubit extends Cubit<DiceState>
 
   @override
   void onStartReceived() async {
-    if(_stopped && !_started){
+    if(!_started){
       _started = true;
       double tickDuration = _config.initialTickDurationMs.toDouble();
       while (tickDuration < _config.lastTickMS) {
