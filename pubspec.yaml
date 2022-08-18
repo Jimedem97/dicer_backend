@@ -37,6 +37,7 @@ dependencies:
   flutter_bloc: ^8.0.1
   equatable: ^2.0.0
   flutter_bounce: ^1.1.0
+  cube_transition_plus: ^2.0.1
 
 dev_dependencies:
   flutter_test:

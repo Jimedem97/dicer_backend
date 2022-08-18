@@ -1,5 +1,4 @@
-import 'dart:math';
-
+import 'package:dicer/common/util.dart';
 import 'package:dicer/widget/dice/dice_content.dart';
 import 'package:dicer/widget/heartbeat.dart';
 import 'package:flutter/material.dart';
@@ -22,12 +21,11 @@ class Dice extends StatelessWidget {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
 
-    final diceSize =
-        min(mediaQuery.size.height, mediaQuery.size.width) * sizeMultiplier;
     return Heartbeat(
       animation: animation,
       durationMs: bounceDuration ~/ 2,
-      child: DiceContent(number: number, diceSize: diceSize),
+      child: DiceContent(
+          number: number, diceSize: diceSize(mediaQuery, sizeMultiplier)),
     );
   }
 }

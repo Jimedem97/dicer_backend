@@ -1,4 +1,5 @@
 import 'package:dicer/bloc/dice_cubit.dart';
+import 'package:dicer/cube/two_cube_screen.dart';
 import 'package:dicer/logic/server/server.dart';
 import 'package:dicer/widget/dice/five.dart';
 import 'package:dicer/widget/dice/one.dart';
@@ -24,32 +25,37 @@ class _DiceScreenState extends State<DiceScreen> {
         return true;
       },
       builder: (context, state) {
-        switch (state.numbers.length) {
-          case 1:
-            return OneDiceScreen(
-                animation: state.animation,
-                number: state.numbers[0], nextDiceIn: state.nextDiceInMs);
-          case 2:
-            return TwoDicesScreen(
-                animation: state.animation,
-                number1: state.numbers[0],
-                number2: state.numbers[1],
-                nextDiceIn: state.nextDiceInMs);
-          case 3:
-            return ThreeDicesScreen(
-                animation: state.animation,
-                number1: state.numbers[0],
-                number2: state.numbers[1],
-                number3: state.numbers[2],
-                nextDiceIn: state.nextDiceInMs);
-          default:
-            return FourDicesScreen(
-                animation: state.animation,
-                number1: state.numbers[0],
-                number2: state.numbers[1],
-                number3: state.numbers[2],
-                number4: state.numbers[3],
-                nextDiceIn: state.nextDiceInMs);
+        if (state.animation == "CUBE") {
+          return const TwoCubeScreen();
+        } else {
+          switch (state.numbers.length) {
+            case 1:
+              return OneDiceScreen(
+                  animation: state.animation,
+                  number: state.numbers[0],
+                  nextDiceIn: state.nextDiceInMs);
+            case 2:
+              return TwoDicesScreen(
+                  animation: state.animation,
+                  number1: state.numbers[0],
+                  number2: state.numbers[1],
+                  nextDiceIn: state.nextDiceInMs);
+            case 3:
+              return ThreeDicesScreen(
+                  animation: state.animation,
+                  number1: state.numbers[0],
+                  number2: state.numbers[1],
+                  number3: state.numbers[2],
+                  nextDiceIn: state.nextDiceInMs);
+            default:
+              return FourDicesScreen(
+                  animation: state.animation,
+                  number1: state.numbers[0],
+                  number2: state.numbers[1],
+                  number3: state.numbers[2],
+                  number4: state.numbers[3],
+                  nextDiceIn: state.nextDiceInMs);
+          }
         }
       },
     );

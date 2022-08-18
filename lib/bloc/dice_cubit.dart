@@ -4,7 +4,6 @@ import 'package:dicer/common/random_dice.dart';
 import 'package:dicer/dto/config_dto.dart';
 import 'package:dicer/logic/server/listeners/auto_run_listener.dart';
 import 'package:dicer/logic/server/listeners/config_listener.dart';
-import 'package:dicer/logic/server/listeners/is_alive_listener.dart';
 import 'package:dicer/logic/server/listeners/start_listener.dart';
 import 'package:dicer/logic/server/listeners/stop_listener.dart';
 import 'package:equatable/equatable.dart';
@@ -21,7 +20,7 @@ class DiceCubit extends Cubit<DiceState>
         DicerAutorunListener,
         DicerStartListener,
         DicerStopListener,
-        DicerConfigListener{
+        DicerConfigListener {
   DiceCubit() : super(DiceInitial()) {
     _autoRunListener = DicerServerAutorunListener(this);
     Server.instance.registerListener(_autoRunListener);
@@ -54,12 +53,13 @@ class DiceCubit extends Cubit<DiceState>
   @override
   void onStartAutorunReceived(ConfigDto dto) async {
     double tickDuration = dto.initialTickDurationMs.toDouble();
+    List<int> runTargets = dto.targets[_run % dto.targets.length];
     while (tickDuration < dto.lastTickMS) {
-      emitRandomDices(dto.targets.length, tickDuration.toInt(), dto.animation);
+      emitRandomDices(runTargets.length, tickDuration.toInt(), dto.animation);
       await Future.delayed(Duration(milliseconds: tickDuration.toInt()));
       tickDuration *= (1 + (dto.percentTickIncrease / 100.0)) as int;
     }
-    emit(DiceRolled(dto.targets[_run % dto.targets.length], 0, dto.animation));
+    emit(DiceFinished(runTargets, dto.lastTickMS, dto.animation));
     _run++;
   }
 
@@ -72,19 +72,19 @@ class DiceCubit extends Cubit<DiceState>
 
   @override
   void onStartReceived() async {
-    if(!_started){
+    if (!_started) {
       _started = true;
+      List<int> runTargets = _config.targets[_run % _config.targets.length];
       double tickDuration = _config.initialTickDurationMs.toDouble();
       while (tickDuration < _config.lastTickMS) {
         emitRandomDices(
-            _config.targets.length, tickDuration.toInt(), _config.animation);
+            runTargets.length, tickDuration.toInt(), _config.animation);
         await Future.delayed(Duration(milliseconds: tickDuration.toInt()));
         if (_stopped) {
           tickDuration *= (1 + (_config.percentTickIncrease / 100.0));
         }
       }
-      emit(DiceRolled(
-          _config.targets[_run % _config.targets.length], 0, _config.animation));
+      emit(DiceFinished(runTargets, _config.lastTickMS, _config.animation));
       _run++;
       _stopped = false;
       _started = false;

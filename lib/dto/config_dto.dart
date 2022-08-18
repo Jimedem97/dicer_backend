@@ -8,10 +8,10 @@ class ConfigDto {
   final String animation;
 
   ConfigDto(
-      {this.initialTickDurationMs = 100,
+      {this.initialTickDurationMs = 300,
       this.percentTickIncrease = 10,
       this.lastTickMS = 1000,
-      this.targets = const [[1, 1]],
+      this.targets = const [[2, 3]],
       this.animation = ''});
 
   factory ConfigDto.fromJson(Map<String, dynamic> json) {

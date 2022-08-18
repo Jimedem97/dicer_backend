@@ -2,6 +2,9 @@ import 'dart:io';
 
 import 'package:dicer/bloc/dice_cubit.dart';
 import 'package:dicer/bloc/server_cubit.dart';
+import 'package:dicer/cube/animated_cube.dart';
+import 'package:dicer/cube/two_cube_screen.dart';
+import 'package:dicer/cube/legacy/dice_test_screen.dart';
 import 'package:dicer/logic/server/server.dart';
 import 'package:dicer/logic/server/listeners/server_listener.dart';
 import 'package:dicer/widget/dice/five.dart';
@@ -51,6 +54,7 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ServerCubit, ServerState>(
       builder: (context, state) {
+        return const TwoCubeScreen();
         if (state is ServerStarted) {
           return const DiceScreen();
         } else {
