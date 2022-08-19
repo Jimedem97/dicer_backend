@@ -80,6 +80,7 @@ class _AnimatedCubeState extends State<AnimatedCube> {
         isApprox(_x, 1.5 * pi, epsilon: eps));
   }
 
+
   void _onAnimate() {
     if (isRunning || (!sideCentered(0.0001) && !isRunning)) {
       setState(() {
@@ -95,9 +96,6 @@ class _AnimatedCubeState extends State<AnimatedCube> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<DiceCubit, DiceState>(builder: (context, state) {
-      // if(wasFinished){
-      //   _x = widget.initialOffset;
-      // }
       isRunning = state is! DiceFinished;
       final number = state.numbers[widget.index];
       setNumbers(number);
@@ -109,7 +107,6 @@ class _AnimatedCubeState extends State<AnimatedCube> {
           wasFinished = true;
         }
       } else {
-
         if (state.nextDiceInMs == 0) {
           stepSize = 0;
         } else {
