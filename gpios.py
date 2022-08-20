@@ -3,11 +3,24 @@
 import RPi.GPIO as gpio
 import time
 import requests
+from threading import Thread
 
 pin = 14 
 stopped = True
-basePathRaspi = "http://joni-media.local/dicer/"
-basePathLaptop = "http://joni-laptop-alt/dicer/"
+basePathRaspi = "http://192.168.1.22/dicer/"
+basePathLaptop = "http://192.168.1.23/dicer/"
+
+def runLaptop(path):
+    try:
+        requests.post(basePathLaptop + path)
+    except Exception:
+         print("Laptop not reachable")
+
+def runRaspi(path):
+    try:
+        requests.post(basePathRaspi + path)
+    except Exception:
+         print("Laptop not reachable")
 
 
 def on_pushdown(c):
@@ -16,24 +29,12 @@ def on_pushdown(c):
     global basePathLaptop
     
     if(stopped):
-        try:
-            requests.post(basePathLaptop + "start")
-        except Exception:
-            print("Laptop not reachable")
-        try:
-            requests.post(basePathRaspi + "start")
-        except Exception:
-            print("Raspi not reachable")
+        Thread(target = runLaptop, args = ("start",)).start()
+        Thread(target = runRaspi, args = ("start",)).start()
         stopped = False
     else:
-        try:
-            requests.post(basePathLaptop + "stop")
-        except Exception:
-            print("Laptop not reachable")
-        try:
-            requests.post(basePathRaspi + "stop")
-        except Exception:
-            print("Raspi not reachable")
+        Thread(target = runLaptop, args = ("stop",)).start()
+        Thread(target = runRaspi, args = ("stop",)).start()
         stopped = True
 
 
@@ -47,7 +48,7 @@ try:
         if not 'event' in locals():
             event = gpio.add_event_detect(pin, gpio.RISING, callback=on_pushdown, bouncetime=500)
         else:
-            time.sleep(1)
+            time.sleep(0.5)
 
 finally:  
     gpio.cleanup()

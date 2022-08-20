@@ -54,7 +54,6 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ServerCubit, ServerState>(
       builder: (context, state) {
-        return const TwoCubeScreen();
         if (state is ServerStarted) {
           return const DiceScreen();
         } else {

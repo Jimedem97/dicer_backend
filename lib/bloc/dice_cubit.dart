@@ -95,6 +95,7 @@ class DiceCubit extends Cubit<DiceState>
   bool onConfigReceived(ConfigDto dto) {
     if (!_started) {
       _config = dto;
+      _run = 0;
       return true;
     } else {
       return false;

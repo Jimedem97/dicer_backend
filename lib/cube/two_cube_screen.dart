@@ -14,8 +14,8 @@ class TwoCubeScreen extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          AnimatedCube(index: 0, size: size, initialOffset: 0),
-          AnimatedCube(index: 1, size: size, initialOffset: pi/4),
+          AnimatedCube(index: 0, size: size),
+          AnimatedCube(index: 1, size: size),
         ],
       ),
     );
